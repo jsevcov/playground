@@ -265,5 +265,15 @@ textarea {
 }
 
 body {
-  background: F4F4F4;
+  background: #a9a9a9;
+}
+
+img {
+  max-width: 150px;
+  border: 1px solid black;
+}
+
+.user-all-data {
+  background: #cfcfcf;
+  padding: 20px;
 }
