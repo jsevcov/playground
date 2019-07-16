@@ -1,11 +1,18 @@
 let from = 0;
 let to = 5;
 
+let pageTotal;
+let actualPage;
+let totalItems;
+let pageSize = 5;
+
 function showData() {
   $.getJSON('https://api.github.com/users?since=10', users => {
     console.log(users);
-    console.log(users.length);
-
+    totalItems = users.length;
+    pageTotal = totalItems / pageSize;
+    actualPage = (totalItems - (totalItems - to)) / pageSize;
+    console.log("actual page is " + actualPage + " of " + pageTotal + " pages");
     document.getElementById('datashow').innerHTML = users.slice(from, to).map(user => {
       return `
         <p class="mt-4"><img src=${user.avatar_url}/>
@@ -14,6 +21,7 @@ function showData() {
     });
   });
 }
+
 
 function userDetail() {
   let userUrl = document.location.href;
@@ -35,14 +43,15 @@ function userDetail() {
   });
 }
 
-function pagination() {
-
-}
 
 function nextStep() {
-  from += 5;
-  to += 5;
-  showData();
+  if (actualPage >= pageTotal) {
+    alert("this was last page")
+  } else {
+    from += 5;
+    to += 5;
+    showData();
+  }
 }
 
 function previousStep() {
